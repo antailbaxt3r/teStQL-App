@@ -30,7 +30,17 @@ class CommonFragment : Fragment() {
         val root: View? = inflater.inflate(R.layout.fragment_common, container, false)
         loadToast = LoadToast(context)
         loadToast.setText("Loading...").show()
-        var call: Call<List<TestModel>> = RetrofitClient.getClient().allTests
+        sendCall()
+        return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sendCall()
+    }
+
+    private fun sendCall() {
+        val call: Call<List<TestModel>> = RetrofitClient.getClient().allTests
         call.enqueue(object: Callback<List<TestModel>>{
             override fun onResponse(call: Call<List<TestModel>>, response: Response<List<TestModel>>) {
                 if(response.isSuccessful && response.code() == 200) run {
@@ -50,7 +60,5 @@ class CommonFragment : Fragment() {
             }
 
         })
-        return root
     }
-
 }

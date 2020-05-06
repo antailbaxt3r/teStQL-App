@@ -26,7 +26,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -64,7 +63,14 @@ dependencies {
 
     //load toast
     implementation 'net.steamcrafted:load-toast:1.0.12'
+
+    //MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 repositories {
     mavenCentral()
+    maven {
+        jcenter()
+        url 'https://www.jitpack.io'
+    }
 }

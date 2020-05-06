@@ -23,4 +23,6 @@
     <string name="completed" />
     <string name="common">Common</string>
     <string name="delete_all">Delete All</string>
+    <string name="delete">Delete</string>
+    <string name="green_shows_score">Green shows score</string>
 </resources>

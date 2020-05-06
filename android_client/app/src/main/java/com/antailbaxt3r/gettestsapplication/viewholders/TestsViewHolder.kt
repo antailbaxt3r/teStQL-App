@@ -2,11 +2,13 @@ package com.antailbaxt3r.gettestsapplication.viewholders
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.antailbaxt3r.gettestsapplication.activities.OpenDetailsActivity
 import com.antailbaxt3r.gettestsapplication.models.TestModel
 import kotlinx.android.synthetic.main.item_test.view.*
 import java.text.SimpleDateFormat
@@ -53,5 +55,17 @@ class TestsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         dateString += month + test.testDate?.substring(0, 4)
 
         date.text = dateString
+        itemView.view_detail_btn.setOnClickListener{
+            val intent = Intent(itemView.context, OpenDetailsActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("title", test.title)
+            intent.putExtra("pattern", test.testPattern)
+            intent.putExtra("date", date.text.toString())
+            intent.putExtra("max", test.maxMarks)
+            intent.putExtra("score", test.score)
+            intent.putExtra("type", test.testType)
+            intent.putExtra("id", test.id)
+            itemView.context.startActivity(intent)
+        }
     }
 }
