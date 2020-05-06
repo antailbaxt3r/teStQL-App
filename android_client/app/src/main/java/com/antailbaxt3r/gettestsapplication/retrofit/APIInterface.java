@@ -2,6 +2,7 @@ package com.antailbaxt3r.gettestsapplication.retrofit;
 
 import com.antailbaxt3r.gettestsapplication.models.TestModel;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface APIInterface {
     Call<TestModel> getTest(@Path("id") int id);
 
     @POST("tests")
-    Call<TestModel> addTest(@Body Map<String, String> map);
+    Call<TestModel> addTest(@Body HashMap<String, String> map);
 
     @PUT("tests/{id}")
     Call<TestModel> update(@Path("id") int id, @Body Map<String, String> map);

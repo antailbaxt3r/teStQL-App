@@ -8,19 +8,39 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import com.antailbaxt3r.gettestsapplication.R
 import com.antailbaxt3r.gettestsapplication.databinding.ActivityAddTestBinding
+import com.antailbaxt3r.gettestsapplication.models.TestModel
+import com.antailbaxt3r.gettestsapplication.retrofit.RetrofitClient
+import net.steamcrafted.loadtoast.LoadToast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
+import kotlin.collections.HashMap
 
 class AddTestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddTestBinding
     private var pattern: Boolean = false
     private var type: Boolean = true
+    private lateinit var loadToast: LoadToast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //actionbar
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Add Test"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
+        loadToast = LoadToast(this)
+        loadToast.setText("Loading...")
 
         binding.mains.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
             if(b){
@@ -76,15 +96,21 @@ class AddTestActivity : AppCompatActivity() {
                 checkType() &&
                 checkDate()
             ){
+                loadToast.show()
                 Toast.makeText(this, "All fields correct", Toast.LENGTH_SHORT).show()
+                sendRequest()
             }else{
                 Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     private fun checkTitle(): Boolean {
-        Log.i("CHECKING", "TITLE")
         return if(binding.testTitleTiet.text == null || binding.testTitleTiet.text.toString().isEmpty()){
             binding.testTitleTil.error = "This field cannot be empty"
             false
@@ -144,6 +170,38 @@ class AddTestActivity : AppCompatActivity() {
         }
         binding.date.error == null
         return true
+    }
+
+    private fun sendRequest(){
+        val map : HashMap<String, String> = HashMap()
+
+        map["title"] = binding.testTitleTiet.text.toString()
+        map["maxMarks"] = binding.maxMarksTiet.text.toString()
+        map["score"] = binding.scoreTiet.text.toString()
+        map["testPattern"] = if(pattern) "JEE(Mains)" else "JEE(M+A)"
+        map["testType"] = if(type) "OBJ" else "SUB"
+        map["testDate"] = binding.date.text.toString()
+
+        Log.i("Request Body", map.toString())
+
+        val call: Call<TestModel> = RetrofitClient.getClient().addTest(map)
+        call.enqueue(object : Callback<TestModel>{
+            override fun onResponse(call: Call<TestModel>, response: Response<TestModel>) {
+                if(response.isSuccessful && response.code() == 200){
+                    Toast.makeText(applicationContext, "Added Successfully!", Toast.LENGTH_SHORT).show()
+                    loadToast.success()
+                }else{
+                    Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                    loadToast.error()
+                }
+            }
+
+            override fun onFailure(call: Call<TestModel>, t: Throwable) {
+                Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                loadToast.error()
+                t.printStackTrace()
+            }
+        } )
     }
 
 }
