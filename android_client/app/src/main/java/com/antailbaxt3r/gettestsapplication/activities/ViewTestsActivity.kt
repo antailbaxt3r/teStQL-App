@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager
 import com.antailbaxt3r.gettestsapplication.R
 import com.antailbaxt3r.gettestsapplication.utils.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_view_tests.*
 
 class ViewTestsActivity : AppCompatActivity() {
 
@@ -16,13 +17,12 @@ class ViewTestsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_tests)
 
         setViewPager()
+
     }
 
     private fun setViewPager() {
-        val viewPager = findViewById<ViewPager>(R.id.view_pager)
         val adapter = ViewPagerAdapter(supportFragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        viewPager.adapter = adapter
-        val tabLayout = findViewById<TabLayout>(R.id.dashboard_tab_layout)
-        tabLayout.setupWithViewPager(viewPager)
+        view_pager.adapter = adapter
+        dashboard_tab_layout.setupWithViewPager(view_pager)
     }
 }
