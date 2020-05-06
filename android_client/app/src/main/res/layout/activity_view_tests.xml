@@ -8,36 +8,41 @@
     android:orientation="vertical"
     tools:context=".activities.ViewTestsActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/dashboard_tab_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:tabIndicatorColor="@color/light_green"
-        app:tabIndicatorHeight="1dp"
-        app:tabTextColor="@color/light_green">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/common" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/jee_m_a" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/jee_mains" />
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/dashboard_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/light_green"
+            app:tabIndicatorHeight="1dp"
+            app:tabTextColor="@color/light_green">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/common" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/jee_m_a" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/jee_mains" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
     <Button
         android:id="@+id/delete_all"
         android:layout_width="match_parent"
