@@ -20,4 +20,7 @@
     <string name="add_test_details">Add Test Details</string>
     <string name="tap_to_select_date">Select date</string>
     <string name="view_details">View Details</string>
+    <string name="completed" />
+    <string name="common">Common</string>
+    <string name="delete_all">Delete All</string>
 </resources>
