@@ -35,8 +35,8 @@ class CommonFragment : Fragment() {
             override fun onResponse(call: Call<List<TestModel>>, response: Response<List<TestModel>>) {
                 if(response.isSuccessful && response.code() == 200) run {
                     val list: List<TestModel>? = response.body()
-                    tests_recycler_view.adapter = TestsRVAdapter(list, context!!)
-                    tests_recycler_view.layoutManager = LinearLayoutManager(context)
+                    tests_recycler_view!!.adapter = TestsRVAdapter(list, context!!)
+                    tests_recycler_view!!.layoutManager = LinearLayoutManager(context)
                     loadToast.success()
                 }else{
                     loadToast.error()

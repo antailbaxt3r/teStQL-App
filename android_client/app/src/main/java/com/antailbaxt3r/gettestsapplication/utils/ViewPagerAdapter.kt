@@ -11,8 +11,8 @@ class ViewPagerAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerA
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> return CommonFragment()
-            1 -> return MainsFragment()
-            2 -> return AdvancedFragment()
+            1 -> return AdvancedFragment()
+            2 -> return MainsFragment()
         }
         return Fragment()
     }
