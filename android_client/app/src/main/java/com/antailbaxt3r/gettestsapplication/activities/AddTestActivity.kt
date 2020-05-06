@@ -76,10 +76,10 @@ class AddTestActivity : AppCompatActivity() {
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
 
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, _, dayOfMonth ->
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in TextView
                 val dayString = String.format("%02d", dayOfMonth)
-                val monthString = String.format("%02d", month)
+                val monthString = String.format("%02d", monthOfYear+1)
                 val display = "$year-$monthString-$dayString"
                 binding.date.text = display
                 binding.date.setTextColor(resources.getColor(R.color.black))
@@ -178,7 +178,7 @@ class AddTestActivity : AppCompatActivity() {
         map["title"] = binding.testTitleTiet.text.toString()
         map["maxMarks"] = binding.maxMarksTiet.text.toString()
         map["score"] = binding.scoreTiet.text.toString()
-        map["testPattern"] = if(pattern) "JEE(Mains)" else "JEE(M+A)"
+        map["testPattern"] = if(pattern) "JEE(Main)" else "JEE(M+A)"
         map["testType"] = if(type) "OBJ" else "SUB"
         map["testDate"] = binding.date.text.toString()
 
@@ -190,6 +190,7 @@ class AddTestActivity : AppCompatActivity() {
                 if(response.isSuccessful && response.code() == 200){
                     Toast.makeText(applicationContext, "Added Successfully!", Toast.LENGTH_SHORT).show()
                     loadToast.success()
+                    onBackPressed()
                 }else{
                     Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
                     loadToast.error()
