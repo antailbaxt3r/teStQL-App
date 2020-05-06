@@ -22,6 +22,15 @@ class ViewTestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_tests)
+
+        //actionbar
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Report List"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
         val loadToast = LoadToast(this)
         loadToast.setText("Please wait...")
         setViewPager()
@@ -70,5 +79,10 @@ class ViewTestsActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         view_pager.adapter = adapter
         dashboard_tab_layout.setupWithViewPager(view_pager)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
