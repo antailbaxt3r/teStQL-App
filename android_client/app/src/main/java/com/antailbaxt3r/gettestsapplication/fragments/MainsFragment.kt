@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.antailbaxt3r.gettestsapplication.R
+import com.antailbaxt3r.gettestsapplication.activities.ViewTestsActivity
 import com.antailbaxt3r.gettestsapplication.adapters.TestsRVAdapter
 import com.antailbaxt3r.gettestsapplication.models.TestModel
 import com.antailbaxt3r.gettestsapplication.retrofit.RetrofitClient
+import kotlinx.android.synthetic.main.activity_view_tests.*
 import kotlinx.android.synthetic.main.fragment_mains.tests_recycler_view
 import net.steamcrafted.loadtoast.LoadToast
 import retrofit2.Call
@@ -30,6 +32,7 @@ class MainsFragment : Fragment() {
         val root: View? = inflater.inflate(R.layout.fragment_mains, container, false)
         loadToast = LoadToast(context)
         loadToast.setText("Loading...").show()
+        (context as ViewTestsActivity).progress_bar.visibility = View.VISIBLE
         sendCall()
         return root
     }
@@ -58,12 +61,14 @@ class MainsFragment : Fragment() {
                 }else{
                     loadToast.error()
                 }
+                (context as ViewTestsActivity).progress_bar.visibility = View.GONE
             }
 
             override fun onFailure(call: Call<List<TestModel>>, t: Throwable) {
                 t.printStackTrace()
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
                 loadToast.error()
+                (context as ViewTestsActivity).progress_bar.visibility = View.GONE
             }
 
         })

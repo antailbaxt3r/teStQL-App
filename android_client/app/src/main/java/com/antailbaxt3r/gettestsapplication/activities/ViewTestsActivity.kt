@@ -1,6 +1,5 @@
 package com.antailbaxt3r.gettestsapplication.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -11,7 +10,6 @@ import com.antailbaxt3r.gettestsapplication.models.TestModel
 import com.antailbaxt3r.gettestsapplication.retrofit.RetrofitClient
 import com.antailbaxt3r.gettestsapplication.utils.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_view_tests.*
-import net.steamcrafted.loadtoast.LoadToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,8 +29,6 @@ class ViewTestsActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 
-        val loadToast = LoadToast(this)
-        loadToast.setText("Please wait...")
         setViewPager()
 
         delete_all.setOnClickListener{
@@ -50,16 +46,15 @@ class ViewTestsActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<TestModel>, t: Throwable) {
                         Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
                         t.printStackTrace()
-                        loadToast.error()
                     }
 
                     override fun onResponse(call: Call<TestModel>, response: Response<TestModel>) {
                         if(response.isSuccessful && response.code() == 200){
-                            loadToast.success()
                             finish()
+                            Toast.makeText(applicationContext, "Deleted Successfully", Toast.LENGTH_SHORT).show()
                             startActivity(intent)
                         }else{
-                            loadToast.error()
+                            Toast.makeText(applicationContext, "Something went wrong!", Toast.LENGTH_SHORT).show()
                         }
                     }
 
