@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GetTestsApplication</string>
+    <string name="app_name">teStQL</string>
     <string name="add_a_test">Add a test</string>
     <string name="welcome">Welcome!</string>
     <string name="view_test_list">View Test List</string>
